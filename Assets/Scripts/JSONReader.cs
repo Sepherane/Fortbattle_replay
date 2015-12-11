@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using LitJson;
 
-public class JSONReader : MonoBehaviour {
+public static class JSONReader {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	public static JsonData ConvertJSON(string name)
+    {
+        return JsonMapper.ToObject(FileReader.ReadFile(name));
+    }
 }

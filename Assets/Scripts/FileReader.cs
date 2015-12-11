@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FileReader : MonoBehaviour {
+public static class FileReader {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	public static string ReadFile(string name)
+    {
+        TextAsset txt = (TextAsset)Resources.Load(name, typeof(TextAsset));
+        return txt.text;
+    }
 }
