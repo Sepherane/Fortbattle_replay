@@ -1,10 +1,10 @@
 ﻿/// <summary>
-/// Side of the battle, attacker or defender
+/// Side of the battle, attack or defense
 /// </summary>
 public enum Side
 {
-    Attacker,
-    Defender
+    Attack,
+    Defense
 }
 
 /// <summary>
@@ -17,5 +17,15 @@ public enum SectorType
     Wall,
     Building,
     Ground,
-    Tower
+    Tower,
+    Gate
+}
+
+/// <summary>
+/// Orientation of something
+/// </summary>
+public enum Orientation
+{
+    Horizontal,
+    Vertical
 }
