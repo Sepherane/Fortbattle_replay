@@ -5,7 +5,8 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log(JSONReader.ConvertJSON("ExampleJSON")["stats"][1]);
+        Battle b = new Battle(JSONReader.ConvertJSON("ExampleJSON"));
+        Debug.Log(b.attackers.ToString());
 	}
 	
 }
