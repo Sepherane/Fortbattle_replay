@@ -58,7 +58,9 @@ public class Battle {
         attackers = new List<Player>();
         for (int i = 0; i < json.Count; i++)
         {
-            attackers.Add(new Player(Side.Attack,Int32.Parse(json[i]["westid"].ToString()),json[i]["name"].ToString()));
+            Player player = new Player(Side.Attack, Int32.Parse(json[i]["westid"].ToString()), json[i]["name"].ToString());
+            player.startpos = ToVector(Int32.Parse(json[i]["firstroundpos"].ToString()),width);
+            attackers.Add(player);
         }
     }
 
@@ -67,7 +69,9 @@ public class Battle {
         defenders = new List<Player>();
         for (int i = 0; i < json.Count; i++)
         {
-            defenders.Add(new Player(Side.Defense, Int32.Parse(json[i]["westid"].ToString()), json[i]["name"].ToString()));
+            Player player = new Player(Side.Defense, Int32.Parse(json[i]["westid"].ToString()), json[i]["name"].ToString());
+            player.startpos = ToVector(Int32.Parse(json[i]["firstroundpos"].ToString()), width);
+            defenders.Add(player);
         }
     }
 

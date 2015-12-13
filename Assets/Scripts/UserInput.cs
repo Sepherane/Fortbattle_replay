@@ -13,7 +13,6 @@ public class UserInput : MonoBehaviour {
     private float yaw = 0.0f;
     private float pitch = 0.0f;
 
-    public float speed = 1.5f;
     public float spacing = 1.0f;
     private Vector3 pos;
 
@@ -37,9 +36,9 @@ public class UserInput : MonoBehaviour {
         transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
 
         if (Input.GetKey(KeyCode.W))
-            pos.y += spacing;
+            pos += spacing*transform.forward;
         if (Input.GetKey(KeyCode.S))
-            pos.y -= spacing;
+            pos -= spacing*transform.forward;
         if (Input.GetKey(KeyCode.A))
             pos -= spacing * transform.right;
         if (Input.GetKey(KeyCode.D))

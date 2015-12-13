@@ -46,7 +46,7 @@ public class Sector
         {
             this.sectorType = SectorType.Tower;
         }
-        else if (json.Keys.Contains("DefenderBonus") && Int32.Parse(json["height"].ToString()) == 0)
+        else if (json.Keys.Contains("defenderBonus") && Int32.Parse(json["height"].ToString()) == 0)
         {
             this.sectorType = SectorType.Gate;
         }
