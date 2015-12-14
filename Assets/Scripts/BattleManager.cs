@@ -203,6 +203,8 @@ public class BattleManager : MonoBehaviour {
             if (player.GetComponent<PlayerObject>() != null)
                 player.GetComponent<PlayerObject>().SetSide(Side.Attack);
             player.transform.parent = attackers.transform;
+
+            p.playerObject = player;
         }
 
         foreach (Player p in b.defenders)
@@ -213,6 +215,8 @@ public class BattleManager : MonoBehaviour {
                 player.GetComponent<PlayerObject>().SetSide(Side.Defense);
             }
             player.transform.parent = defenders.transform;
+
+            p.playerObject = player;
         }
     }
 	

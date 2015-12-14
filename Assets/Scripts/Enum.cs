@@ -29,3 +29,12 @@ public enum Orientation
     Horizontal,
     Vertical
 }
+
+public enum CharacterClass
+{
+    Greenhorn,
+    Soldier,
+    Worker,
+    Adventurer,
+    Duelist
+}

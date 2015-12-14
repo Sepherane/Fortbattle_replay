@@ -12,9 +12,9 @@ public class Player {
     public int id { get; set; }
     public int currentHealth { get; set; }
     public int maximumHealth { get; set; }
-    public GameObject player { get; set; }
+    public GameObject playerObject { get; set; }
     public Vector2 startpos { get; set; }
-    public int characterClass { get; set; }
+    public CharacterClass characterClass { get; set; }
 
     /// <summary>
     /// Initialize an empty player

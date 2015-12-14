@@ -58,9 +58,7 @@ public class Battle {
         attackers = new List<Player>();
         for (int i = 0; i < json.Count; i++)
         {
-            Player player = new Player(Side.Attack, Int32.Parse(json[i]["westid"].ToString()), json[i]["name"].ToString());
-            player.startpos = ToVector(Int32.Parse(json[i]["firstroundpos"].ToString()),width);
-            attackers.Add(player);
+            attackers.Add(CreatePlayer(json[i], Side.Attack));
         }
     }
 
@@ -69,9 +67,8 @@ public class Battle {
         defenders = new List<Player>();
         for (int i = 0; i < json.Count; i++)
         {
-            Player player = new Player(Side.Defense, Int32.Parse(json[i]["westid"].ToString()), json[i]["name"].ToString());
-            player.startpos = ToVector(Int32.Parse(json[i]["firstroundpos"].ToString()), width);
-            defenders.Add(player);
+            
+            defenders.Add(CreatePlayer(json[i],Side.Defense));
         }
     }
 
@@ -105,5 +102,16 @@ public class Battle {
     private Vector2 ToVector(int id, int mapWidth)
     {
         return new Vector2(id % mapWidth, Mathf.Floor(id / mapWidth));
+    }
+
+    private Player CreatePlayer(JsonData json, Side side)
+    {
+        Player player = new Player(side, Int32.Parse(json["westid"].ToString()), json["name"].ToString());
+        player.startpos = ToVector(Int32.Parse(json["firstroundpos"].ToString()), width);
+        player.maximumHealth = Int32.Parse(json["maxhp"].ToString());
+        player.currentHealth = player.maximumHealth;
+        player.level = Int32.Parse(json["charlevel"].ToString());
+
+        return player;
     }
 }
