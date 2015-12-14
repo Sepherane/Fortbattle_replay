@@ -19,9 +19,10 @@ public class Battle {
     public List<Sector> sectors;
     public List<Player> attackers;
     public List<Player> defenders;
+    public string[] logtypes;
+    public int[] log;
 
     string fortName;
-    string log;
 
     /// <summary>
     /// Initialize a new battle
@@ -51,6 +52,18 @@ public class Battle {
         SetAttackers(json["stats"]["result"]["attackerlist"]);
         SetDefenders(json["stats"]["result"]["defenderlist"]);
         CreateSectors(json["stats"]["result"]["map"]["sectors"], json["stats"]["result"]["map"]["cells"]);
+
+        logtypes = new string[json["stats"]["result"]["logtypes"].Count];
+        for(int i = 0; i< logtypes.Length; i++)
+        {
+            logtypes[i] = json["stats"]["result"]["logtypes"][i].ToString();
+        }
+
+        log = new int[json["stats"]["result"]["log"].Count];
+        for (int i = 0; i < log.Length; i++)
+        {
+            log[i] = Int32.Parse(json["stats"]["result"]["log"][i].ToString());
+        }
     }
 
     public void SetAttackers(JsonData json)

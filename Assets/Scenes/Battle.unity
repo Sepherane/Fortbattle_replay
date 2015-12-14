@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scalingFactor: 0.5
+  battleSpeed: 1
   wall: {fileID: 192984, guid: 757598cbddfb9f747b493cfc6674ea76, type: 2}
   flag: {fileID: 195552, guid: ffd2a06e79a3a2b48853c413c75cec38, type: 2}
   flagAdjacent: {fileID: 130418, guid: 68faf2cc83dd48945bcc7b78c0c0a439, type: 2}

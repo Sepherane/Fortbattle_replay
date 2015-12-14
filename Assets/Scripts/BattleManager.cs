@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class BattleManager : MonoBehaviour {
 
-    public float scalingFactor;
+    public float scalingFactor = 1.0f;
+    public float battleSpeed = 1.0f;
 
     public GameObject wall;
     public GameObject flag;
@@ -20,14 +22,17 @@ public class BattleManager : MonoBehaviour {
 
     private int[,] heightmap;
     private Battle battle;
+    private string[] logtypes;
 
 	// Use this for initialization
 	void Start () {
         battle = new Battle(JSONReader.ConvertJSON("ExampleJSON"));
         heightmap = new int[battle.width, battle.height];
+        logtypes = battle.logtypes;
         Build(battle);
         CreateHeightmap(battle);
         PlacePlayers(battle);
+        Debug.Log(SelectPlayer(3998662));
 	}
 
     /// <summary>
@@ -269,8 +274,38 @@ public class BattleManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Returns the height at the specified position (does not use the scale)
+    /// </summary>
+    /// <param name="position">Position to check</param>
+    /// <returns></returns>
     private int GetHeight(Vector2 position)
     {
         return heightmap[Mathf.RoundToInt(position.x), Mathf.RoundToInt(position.y)];
+    }
+
+
+    /// <summary>
+    /// Transform an int in the battle log to an action string
+    /// </summary>
+    /// <param name="id">ID to transform</param>
+    /// <returns></returns>
+    private string ToAction(int id)
+    {
+        return logtypes[id];
+    }
+
+    /// <summary>
+    /// Finds the player with the specified id
+    /// </summary>
+    /// <param name="id">ID of the player to look for</param>
+    /// <returns></returns>
+    private Player SelectPlayer(int id)
+    {
+        Player p = battle.attackers.FirstOrDefault(i => i.id == id);
+        if (p != null)
+            return p;
+        else
+            return battle.defenders.FirstOrDefault(i => i.id == id);
     }
 }
