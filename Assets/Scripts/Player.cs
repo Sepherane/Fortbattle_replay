@@ -39,11 +39,21 @@ public class Player {
 
     public void ShootAt(Player otherplayer)
     {
-
+        playerObject.GetComponent<PlayerObject>().ShootAt(otherplayer.playerObject);
     }
 
     public void MoveTo(Vector3 newPos)
     {
         playerObject.GetComponent<PlayerObject>().MoveTo(newPos);
+    }
+
+    public void Damage(int damage)
+    {
+        currentHealth -= damage;
+        if(currentHealth <= 0)
+        {
+            currentHealth = 0;
+            Object.Destroy(playerObject);
+        }
     }
 }

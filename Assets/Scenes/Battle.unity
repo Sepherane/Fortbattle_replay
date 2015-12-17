@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20fc6566d967ef43af06e4775e754bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scalingFactor: 0.5
+  scalingFactor: 0.25
   battleSpeed: 1
   wall: {fileID: 192984, guid: 757598cbddfb9f747b493cfc6674ea76, type: 2}
   flag: {fileID: 195552, guid: ffd2a06e79a3a2b48853c413c75cec38, type: 2}
@@ -309,6 +309,7 @@ MonoBehaviour:
   fort: {fileID: 613246564}
   defenders: {fileID: 857907737}
   attackers: {fileID: 131461658}
+  actionDelay: 0
 --- !u!4 &1778164941
 Transform:
   m_ObjectHideFlags: 0

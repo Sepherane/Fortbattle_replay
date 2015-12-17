@@ -26,6 +26,7 @@ public class BattleManager : MonoBehaviour {
 
     private int currentRound;
     private Player selectedPlayer;
+    private Player targetPlayer;
 
     private int[,] heightmap;
     private Battle battle;
@@ -332,7 +333,7 @@ public class BattleManager : MonoBehaviour {
                 break;
             case "CHARTURN":
                 selectedPlayer = SelectPlayer(battle.log[currentAction + 1]);
-                nextAction = Time.time + 0.1f;
+                //nextAction = Time.time + 0.1f;
                 break;
             case "CHARTARGET":
                 break;
@@ -341,20 +342,21 @@ public class BattleManager : MonoBehaviour {
             case "CHARONLINE":
                 break;
             case "SHOOTAT":
-                selectedPlayer.ShootAt(SelectPlayer(battle.log[currentAction + 1]));
+                targetPlayer = SelectPlayer(battle.log[currentAction + 1]);
+                selectedPlayer.ShootAt(targetPlayer);
                 break;
             case "KILLED":
+                targetPlayer.Damage(battle.log[currentAction + 1]);
                 break;
             case "HIT":
+                targetPlayer.Damage(battle.log[currentAction + 1]);
                 break;
             case "MOVED":
-                //selectedPlayer.MoveTo(new Vector3(nextPos.x,nextPos.y,GetHeight(nextPos)*scalingFactor));
                 selectedPlayer.MoveTo(GamePosition(battle.ToVector(battle.log[currentAction + 1], battle.width)));
                 break;
             default:
                 break;
         }
-        Debug.Log(ToAction(battle.log[currentAction]));
         currentAction += 2;
         
     }

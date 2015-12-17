@@ -7,6 +7,10 @@ public class PlayerObject : MonoBehaviour {
     Side side;
     private bool moving;
     private Vector3 moveToPosition;
+    private bool shooting;
+    private float shotEnd;
+    private Vector3 shotStart;
+    private Vector3 shotTarget;
 
     void Update()
     {
@@ -39,5 +43,23 @@ public class PlayerObject : MonoBehaviour {
     {
         moveToPosition = newPosition + new Vector3(0, 0.5f, 0);
         moving = true;
+    }
+
+    public void ShootAt(GameObject opponent)
+    {
+        /*shooting = true;
+        shotEnd = Time.time + 0.5f;*/
+        shotStart = transform.position;
+        shotTarget = opponent.transform.position;
+
+        GameObject go = new GameObject();
+        LineRenderer lines = (LineRenderer)go.AddComponent<LineRenderer>();
+        lines.material.color = (side == Side.Attack ? Color.red : Color.blue);
+        lines.useWorldSpace = false;
+        lines.SetWidth(0.1f, 0.1f);
+        lines.SetVertexCount(2);
+        lines.SetPosition(0, shotStart);
+        lines.SetPosition(1, shotTarget);
+        Destroy(go, 0.5f);
     }
 }
