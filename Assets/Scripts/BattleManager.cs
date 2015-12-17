@@ -20,12 +20,20 @@ public class BattleManager : MonoBehaviour {
     public GameObject defenders;
     public GameObject attackers;
 
+    private int currentAction = 0;
+    private float nextAction;
+    public float actionDelay;
+
+    private int currentRound;
+    private Player selectedPlayer;
+
     private int[,] heightmap;
     private Battle battle;
     private string[] logtypes;
 
 	// Use this for initialization
 	void Start () {
+        nextAction = Time.time;
         battle = new Battle(JSONReader.ConvertJSON("ExampleJSON"));
         heightmap = new int[battle.width, battle.height];
         logtypes = battle.logtypes;
@@ -34,6 +42,12 @@ public class BattleManager : MonoBehaviour {
         PlacePlayers(battle);
         Debug.Log(SelectPlayer(3998662));
 	}
+
+    void Update()
+    {
+        if (Time.time > nextAction)
+            NextAction();
+    }
 
     /// <summary>
     /// Builds the battle components
@@ -307,5 +321,41 @@ public class BattleManager : MonoBehaviour {
             return p;
         else
             return battle.defenders.FirstOrDefault(i => i.id == id);
+    }
+
+    private void NextAction()
+    {
+        switch (ToAction(battle.log[currentAction]))
+        {
+            case "ROUNDSTART":
+                currentRound = battle.log[currentAction + 1];
+                break;
+            case "CHARTURN":
+                selectedPlayer = SelectPlayer(battle.log[currentAction + 1]);
+                nextAction = Time.time + 1.0f;
+                break;
+            case "CHARTARGET":
+                break;
+            case "CHARHEALTH":
+                break;
+            case "CHARONLINE":
+                break;
+            case "SHOOTAT":
+                selectedPlayer.ShootAt(SelectPlayer(battle.log[currentAction + 1]));
+                break;
+            case "KILLED":
+                break;
+            case "HIT":
+                break;
+            case "MOVED":
+                Vector2 nextPos = battle.ToVector(battle.log[currentAction + 1],battle.width);
+                selectedPlayer.MoveTo(new Vector3(nextPos.x,nextPos.y,GetHeight(nextPos)));
+                break;
+            default:
+                break;
+        }
+        Debug.Log(ToAction(battle.log[currentAction]));
+        currentAction += 2;
+        
     }
 }

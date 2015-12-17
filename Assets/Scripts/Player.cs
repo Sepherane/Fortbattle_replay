@@ -36,4 +36,14 @@ public class Player {
         this.side = side;
         this.id = id;
     }
+
+    public void ShootAt(Player otherplayer)
+    {
+
+    }
+
+    public void MoveTo(Vector3 newPos)
+    {
+
+    }
 }

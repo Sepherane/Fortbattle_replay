@@ -112,7 +112,7 @@ public class Battle {
     /// <param name="id">Tile id</param>
     /// <param name="mapWidth">Width of the map</param>
     /// <returns></returns>
-    private Vector2 ToVector(int id, int mapWidth)
+    public Vector2 ToVector(int id, int mapWidth)
     {
         return new Vector2(id % mapWidth, Mathf.Floor(id / mapWidth));
     }
