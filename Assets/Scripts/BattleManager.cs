@@ -218,7 +218,7 @@ public class BattleManager : MonoBehaviour {
     {
         foreach(Player p in b.attackers)
         {
-            GameObject player = Instantiate(this.player, new Vector3(battle.width/2f - p.startpos.x - 0.5f, GetHeight(p.startpos)*scalingFactor+0.5f, p.startpos.y - battle.height/2f + 0.5f), Quaternion.identity) as GameObject;
+            GameObject player = Instantiate(this.player, GamePosition(p.startpos)+new Vector3(0,0.5f,0), Quaternion.identity) as GameObject;
             if (player.GetComponent<PlayerObject>() != null)
                 player.GetComponent<PlayerObject>().SetSide(Side.Attack);
             player.transform.parent = attackers.transform;
@@ -228,7 +228,7 @@ public class BattleManager : MonoBehaviour {
 
         foreach (Player p in b.defenders)
         {
-            GameObject player = Instantiate(this.player, new Vector3(battle.width / 2f - p.startpos.x - 0.5f, GetHeight(p.startpos) * scalingFactor + 0.5f, p.startpos.y - battle.height / 2f + 0.5f), Quaternion.identity) as GameObject;
+            GameObject player = Instantiate(this.player, GamePosition(p.startpos) + new Vector3(0, 0.5f, 0), Quaternion.identity) as GameObject;
             if (player.GetComponent<PlayerObject>() != null)
             {
                 player.GetComponent<PlayerObject>().SetSide(Side.Defense);
@@ -332,7 +332,7 @@ public class BattleManager : MonoBehaviour {
                 break;
             case "CHARTURN":
                 selectedPlayer = SelectPlayer(battle.log[currentAction + 1]);
-                nextAction = Time.time + 1.0f;
+                nextAction = Time.time + 0.1f;
                 break;
             case "CHARTARGET":
                 break;
@@ -348,8 +348,8 @@ public class BattleManager : MonoBehaviour {
             case "HIT":
                 break;
             case "MOVED":
-                Vector2 nextPos = battle.ToVector(battle.log[currentAction + 1],battle.width);
-                selectedPlayer.MoveTo(new Vector3(nextPos.x,nextPos.y,GetHeight(nextPos)));
+                //selectedPlayer.MoveTo(new Vector3(nextPos.x,nextPos.y,GetHeight(nextPos)*scalingFactor));
+                selectedPlayer.MoveTo(GamePosition(battle.ToVector(battle.log[currentAction + 1], battle.width)));
                 break;
             default:
                 break;
@@ -357,5 +357,12 @@ public class BattleManager : MonoBehaviour {
         Debug.Log(ToAction(battle.log[currentAction]));
         currentAction += 2;
         
+    }
+
+    private Vector3 GamePosition(Vector2 pos)
+    {
+        return new Vector3(battle.width / 2f - pos.x - 0.5f, GetHeight(pos) * scalingFactor, pos.y - battle.height / 2f + 0.5f);
+        //return new Vector3(battle.width / 2f - pos.x - 0.5f, GetHeight(pos) * scalingFactor, pos.y - battle.height / 2f + 0.5f);
+
     }
 }

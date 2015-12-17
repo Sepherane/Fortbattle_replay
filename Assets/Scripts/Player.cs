@@ -44,6 +44,6 @@ public class Player {
 
     public void MoveTo(Vector3 newPos)
     {
-
+        playerObject.GetComponent<PlayerObject>().MoveTo(newPos);
     }
 }
